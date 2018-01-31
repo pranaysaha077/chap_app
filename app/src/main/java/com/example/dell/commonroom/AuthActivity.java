@@ -114,6 +114,7 @@ public class AuthActivity extends AppCompatActivity {
 
         };
     }
+    //phone auth
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         mAuth.signInWithCredential(credential)
