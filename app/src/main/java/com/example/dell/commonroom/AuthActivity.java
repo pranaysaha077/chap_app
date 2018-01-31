@@ -127,7 +127,7 @@ public class AuthActivity extends AppCompatActivity {
 
                             FirebaseUser user = task.getResult().getUser();
 
-                            Intent subIntent=new Intent(AuthActivity.this,MainActivity.class);
+                            Intent subIntent=new Intent(AuthActivity.this,TalkActivity.class);
                             startActivity(subIntent);
                             finish();
                             // ...

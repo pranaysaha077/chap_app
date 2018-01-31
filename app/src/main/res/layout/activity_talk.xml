@@ -6,13 +6,14 @@
     android:layout_height="match_parent"
     tools:context="com.example.dell.commonroom.TalkActivity">
 
-    <android.support.v7.app.AlertController.RecycleListView
+
+
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/linearlayout"
         android:id="@+id/massegeRec">
-
-    </android.support.v7.app.AlertController.RecycleListView>
+        ></android.support.v7.widget.RecyclerView>
 
     <LinearLayout
     android:layout_width="match_parent"
@@ -22,7 +23,7 @@
         android:id="@+id/linearlayout">
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:text="logout"
             android:id="@+id/lost" />
@@ -35,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="SEND"
-            android:id="@+id/buttonClicked"
+            android:onClick="sendbuttonClicked"
             />
 
         
