@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CommonRoom</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="logout">logout</string>
+    <string name="welcome_to_chat_room">welcome to chat Room</string>
+    <string name="sign_out">sign_out</string>
+</resources>
