@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.concurrent.TimeUnit;
 
@@ -38,8 +39,9 @@ public class AuthActivity extends AppCompatActivity {
     private PhoneAuthProvider.ForceResendingToken mResendToken;
 
     private FirebaseAuth mAuth;
+    private String phonenumber;
 
-
+    private  EditText mName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +53,9 @@ public class AuthActivity extends AppCompatActivity {
 
        // mErrorText=(TextView) findViewById(R.id.errorText);
 
-        mbtn=(Button)findViewById(R.id.auth_button);
+        mbtn=findViewById(R.id.auth_button);
 
-
+        mName=findViewById(R.id.editName);
 
 
         mAuth= FirebaseAuth.getInstance();
@@ -66,7 +68,7 @@ public class AuthActivity extends AppCompatActivity {
                 mbtn.setEnabled(false);
                // mCodeText.setEnabled(false);
 
-                String phonenumber=mPhoneText.getText().toString();
+                phonenumber=mPhoneText.getText().toString();
 
                 PhoneAuthProvider.getInstance().verifyPhoneNumber(
                         phonenumber,
@@ -108,6 +110,8 @@ public class AuthActivity extends AppCompatActivity {
 
                 mCodeText.setVisibility(View.VISIBLE);
                 mbtn.setText("Verify Code");
+                mbtn.setEnabled(true);
+                mName.setEnabled(false);
 
                 // ...
             }
@@ -128,6 +132,7 @@ public class AuthActivity extends AppCompatActivity {
                             FirebaseUser user = task.getResult().getUser();
 
                             Intent subIntent=new Intent(AuthActivity.this,TalkActivity.class);
+                            writeUserTodatabase();
                             startActivity(subIntent);
                             finish();
                             // ...
@@ -143,6 +148,10 @@ public class AuthActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+    private void writeUserTodatabase()
+    {
+        FirebaseDatabase.getInstance().getReference().child("users").child(phonenumber).setValue(mName.getText().toString());
     }
 
 }

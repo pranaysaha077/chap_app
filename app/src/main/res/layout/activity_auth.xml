@@ -7,6 +7,17 @@
     android:paddingLeft="16dp"
     tools:context="com.example.dell.commonroom.AuthActivity">
 
+
+    <EditText
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:layout_marginTop="140dp"
+        android:layout_marginLeft="30dp"
+        android:hint="Enter Your Name"
+        android:id="@+id/editName"
+        />
+
     <EditText
         android:id="@+id/auth_phone"
         android:layout_width="270dp"
