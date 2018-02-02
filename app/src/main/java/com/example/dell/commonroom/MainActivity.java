@@ -57,6 +57,12 @@ private Toolbar mtoolbar;
                 startActivity(mainIntent);
                 finish();
         }
+        else
+        {
+            Intent mainIntent=new Intent(MainActivity.this, FriendListActivity.class);
+            startActivity(mainIntent);
+            finish();
+        }
 
     }
 }

@@ -1,6 +1,7 @@
 package com.example.dell.commonroom;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,7 +32,7 @@ public class AuthActivity extends AppCompatActivity {
     private EditText mCodeText;
     private Button mbtn;
 
-    private TextView mErrorText;
+//    private TextView mErrorText;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallBacks;
 
     private String mVerificationId;
@@ -95,8 +96,8 @@ public class AuthActivity extends AppCompatActivity {
             public void onVerificationFailed(FirebaseException e) {
 
 
-                mErrorText.setText("There Was Some Error In Verificatrion");
-                mErrorText.setText(View.VISIBLE);
+//                mErrorText.setText("There Was Some Error In Verificatrion");
+//                mErrorText.setText(View.VISIBLE);
 
             }
 
@@ -131,7 +132,8 @@ public class AuthActivity extends AppCompatActivity {
 
                             FirebaseUser user = task.getResult().getUser();
 
-                            Intent subIntent=new Intent(AuthActivity.this,TalkActivity.class);
+//                            Intent subIntent=new Intent(AuthActivity.this,TalkActivity.class);
+                            Intent subIntent=new Intent(AuthActivity.this,FriendListActivity.class);
                             writeUserTodatabase();
                             startActivity(subIntent);
                             finish();
@@ -139,8 +141,8 @@ public class AuthActivity extends AppCompatActivity {
                         } else {
                             // Sign in failed, display a message and update the UI
 
-                            mErrorText.setText("There Was Some Error In Loggin In");
-                            mErrorText.setText(View.VISIBLE);
+//                            mErrorText.setText("There Was Some Error In Loggin In");
+//                            mErrorText.setText(View.VISIBLE);
 
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 // The verification code entered was invalid
@@ -152,6 +154,21 @@ public class AuthActivity extends AppCompatActivity {
     private void writeUserTodatabase()
     {
         FirebaseDatabase.getInstance().getReference().child("users").child(phonenumber).setValue(mName.getText().toString());
+        saveUserNumber();
+    }
+
+    private void saveUserNumber()
+    {
+        SharedPreferences settings = getApplicationContext().getSharedPreferences("Shared", 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("phoneNumber", phonenumber);
+
+// Apply the edits!
+        editor.apply();
+
+// Get from the SharedPreferences
+//        SharedPreferences settings = getApplicationContext().getSharedPreferences(PREFS_NAME, 0);
+//        int homeScore = settings.getInt("homeScore", 0);
     }
 
 }
