@@ -26,6 +26,7 @@ public class FriendListActivity extends AppCompatActivity {
     private HashMap<String, String> friendList;
     ArrayList<String> names, numbers ;
     private ListView listView;
+    private  String myName;
 
 
     @Override
@@ -43,8 +44,11 @@ public class FriendListActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     String number = numbers.get(i);
+                    String name = names.get(i);
                     Intent intent = new Intent(FriendListActivity.this, TalkActivity.class);
                     intent.putExtra("RecipientNumber", number);
+                    intent.putExtra("RecipientName", name);
+                    intent.putExtra("MyName", myName);
                     startActivity(intent);
                 }
             });
@@ -69,6 +73,10 @@ public class FriendListActivity extends AppCompatActivity {
                         friendList.put(snapshot.getKey(),snapshot.getValue().toString());
                         numbers.add(snapshot.getKey());
                         names.add(snapshot.getValue().toString());
+                    }
+                    else
+                    {
+                        myName = snapshot.getValue().toString();
                     }
 
 

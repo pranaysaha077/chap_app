@@ -4,11 +4,11 @@ package com.example.dell.commonroom;
  * Created by Dell on 01-02-2018.
  */
 
-public class Message {
+public class MessagesClass {
 
     private String message, toNum, fromNum;
 
-    public Message(String message, String toNum, String fromNum) {
+    public MessagesClass(String message, String toNum, String fromNum) {
         this.message = message;
         this.toNum = toNum;
         this.fromNum = fromNum;
@@ -36,5 +36,8 @@ public class Message {
 
     public void setFromNum(String fromNum) {
         this.fromNum = fromNum;
+    }
+
+    public MessagesClass() {
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,38 +8,46 @@
 
 
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/linearlayout"
-        android:id="@+id/massegeRec">
-        ></android.support.v7.widget.RecyclerView>
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_above="@+id/linearlayout"-->
+        <!--android:id="@+id/massegeRec">-->
+        <!--&gt;</android.support.v7.widget.RecyclerView>-->
 
-    <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:layout_alignParentBottom="true"
-        android:id="@+id/linearlayout">
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:layout_alignParentBottom="true"-->
+        <!--android:id="@+id/linearlayout">-->
 
-        <Button
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:text="logout"
-            android:id="@+id/lost" />
+        <!--<Button-->
+            <!--android:layout_width="60dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="logout"-->
+            <!--android:id="@+id/lost" />-->
 
-       <EditText
-           android:layout_width="240dp"
-           android:layout_height="wrap_content"
-           android:id="@+id/editMassegeE"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/send"
-            android:onClick="sendbuttonClicked"
-            />
+       <!--<EditText-->
+           <!--android:layout_width="240dp"-->
+           <!--android:layout_height="wrap_content"-->
+           <!--android:id="@+id/editMassegeE"/>-->
+        <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/send"-->
+            <!--android:onClick="sendbuttonClicked"-->
+            <!--/>-->
 
         
-</LinearLayout>
+<!--</LinearLayout>-->
 
-</RelativeLayout>
+
+
+
+
+    <com.github.bassaer.chatmessageview.view.ChatView
+        android:id="@+id/chat_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>
