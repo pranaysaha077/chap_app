@@ -45,6 +45,7 @@ public class FriendListActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     String number = numbers.get(i);
                     String name = names.get(i);
+                    name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
                     Intent intent = new Intent(FriendListActivity.this, TalkActivity.class);
                     intent.putExtra("RecipientNumber", number);
                     intent.putExtra("RecipientName", name);
@@ -77,6 +78,7 @@ public class FriendListActivity extends AppCompatActivity {
                     else
                     {
                         myName = snapshot.getValue().toString();
+                        myName = Character.toUpperCase(myName.charAt(0)) + myName.substring(1);
                     }
 
 

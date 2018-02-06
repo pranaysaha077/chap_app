@@ -32,6 +32,7 @@ import org.jetbrains.annotations.NotNull;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 import java.util.TimeZone;
 
@@ -108,8 +109,8 @@ sendMessage(data);
        MessagesClass message = new MessagesClass(data, recipientNumber, userNum);
        if(userNum != null)
        {
-           FirebaseDatabase.getInstance().getReference().child("messages").child(userNum).child("sent").child(String.valueOf(System.currentTimeMillis() / 1000L)).setValue(message);
-           FirebaseDatabase.getInstance().getReference().child("messages").child(recipientNumber).child("recieved").child(String.valueOf(System.currentTimeMillis() / 1000L)).setValue(message);
+           FirebaseDatabase.getInstance().getReference().child("messages").child(userNum).child(String.valueOf(System.currentTimeMillis() / 1000L)).setValue(message);
+           FirebaseDatabase.getInstance().getReference().child("messages").child(recipientNumber).child(String.valueOf(System.currentTimeMillis() / 1000L)).setValue(message);
 
        }
    }
@@ -147,15 +148,15 @@ sendMessage(data);
         mChatView.setOnClickSendButtonListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //new message
-                Message message = new Message.Builder()
-                        .setUser(me)
-                        .setRightMessage(true)
-                        .setMessageText(mChatView.getInputText())
-                        .hideIcon(true)
-                        .build();
-                //Set to chat view
-                mChatView.send(message);
+//                //new message
+//                Message message = new Message.Builder()
+//                        .setUser(me)
+//                        .setRightMessage(true)
+//                        .setMessageText(mChatView.getInputText())
+//                        .hideIcon(true)
+//                        .build();
+//                //Set to chat view
+//                mChatView.send(message);
                 //Reset edit text
                 sendMessage(mChatView.getInputText());
                 mChatView.setInputText("");
@@ -183,76 +184,55 @@ sendMessage(data);
 
     private void previous_messages()
     {
-        ValueEventListener valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot snapshot : dataSnapshot.getChildren())
-                {
-                    if(snapshot.getKey().equals("sent"))
-                    {
-                        for(DataSnapshot snapshot1 : snapshot.getChildren())
-                        {
-                            MessagesClass messagesClass = snapshot1.getValue(MessagesClass.class);
-                            final long unixTimeStamp = Long.valueOf(snapshot1.getKey());
-
-                            if(messagesClass.getToNum().equals(recipientNumber)) {
 
 
-                                Message message = new Message.Builder()
-                                        .setUser(me)
-                                        .setRightMessage(true)
-                                        .setMessageText(messagesClass.getMessage())
-                                        .setSendTimeFormatter(new ITimeFormatter() {
-                                            @NotNull
-                                            @Override
-                                            public String getFormattedTimeText(Calendar calendar) {
-                                                return getFormattedDate(unixTimeStamp);
-                                            }
-                                        })
-                                        .hideIcon(true)
-                                        .build();
-                                mChatView.send(message);
-                            }
-                        }
-                    }
-
-                    else
-                    {
-                        for(DataSnapshot snapshot1 : snapshot.getChildren()) {
-
-                            MessagesClass messagesClass = snapshot1.getValue(MessagesClass.class);
-                            final long unixTimeStamp = Long.valueOf(snapshot1.getKey());
-                            if (messagesClass.getFromNum().equals(recipientNumber)) {
-
-                                Message message = new Message.Builder()
-                                        .setUser(you)
-                                        .setRightMessage(false)
-                                        .setMessageText(messagesClass.getMessage())
-                                        .setSendTimeFormatter(new ITimeFormatter() {
-                                            @NotNull
-                                            @Override
-                                            public String getFormattedTimeText(Calendar calendar) {
-                                                return getFormattedDate(unixTimeStamp);
-                                            }
-                                        })
-                                        .hideIcon(true)
-                                        .build();
-                                mChatView.receive(message);
-                            }
-                        }
-                    }
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
         ChildEventListener childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    Log.e("APP", "" + dataSnapshot.getValue() + "     " + dataSnapshot.getKey());
+                    MessagesClass messagesClass = dataSnapshot.getValue(MessagesClass.class);
+                    final long unixTimeStamp = Long.valueOf(dataSnapshot.getKey());
+                    Log.e("App time stamp: ", "    :    " + unixTimeStamp);
+
+
+
+
+                if(messagesClass.getFromNum().equals(getuserPhoneNumber())) {
+                    Message message = new Message.Builder()
+                            .setUser(me)
+                            .setRightMessage(true)
+                            .setMessageText(messagesClass.getMessage())
+                            .setSendTimeFormatter(new ITimeFormatter() {
+                                @NotNull
+                                @Override
+                                public String getFormattedTimeText(Calendar calendar) {
+                                    return getFormattedDate(unixTimeStamp);
+                                }
+                            })
+                            .hideIcon(true)
+                            .build();
+                    mChatView.send(message);
+                    Log.e("APP", "to num from send: " + messagesClass.getFromNum());
+                }
+                else {
+                    Message message = new Message.Builder()
+                            .setUser(you)
+                            .setRightMessage(false)
+                            .setMessageText(messagesClass.getMessage())
+                            .setSendTimeFormatter(new ITimeFormatter() {
+                                @NotNull
+                                @Override
+                                public String getFormattedTimeText(Calendar calendar) {
+                                    return getFormattedDate(unixTimeStamp);
+                                }
+                            })
+                            .hideIcon(true)
+                            .build();
+                    mChatView.receive(message);
+                    Log.e("APP", "to num from recieve: " + messagesClass.getFromNum());
+                }
+
+
 
             }
 
@@ -279,15 +259,21 @@ sendMessage(data);
 
         DatabaseReference database = FirebaseDatabase.getInstance().getReference().child("messages").child(getuserPhoneNumber());
 
-        database.addListenerForSingleValueEvent(valueEventListener);
+//        database.addListenerForSingleValueEvent(valueEventListener);
+        database.addChildEventListener(childEventListener);
     }
 
     private String getFormattedDate(long unixTimeSTamp)
     {
-        Date date = new Date(unixTimeSTamp);
-        SimpleDateFormat jdf = new SimpleDateFormat("HH:mm");
-        jdf.setTimeZone(TimeZone.getTimeZone("GMT-4"));
+        Date date = new Date(unixTimeSTamp*1000);
+
+        Log.e("App time stamp: ", "    date:    " + date.toString());
+        SimpleDateFormat jdf = new SimpleDateFormat("hh:mm a", Locale.ENGLISH);
+        jdf.setTimeZone(TimeZone.getTimeZone("GMT+0530"));
         String java_date = jdf.format(date);
+
+        Log.e("App time stamp: ", "    formatted date:    " + java_date);
+
         return java_date;
     }
 

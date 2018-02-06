@@ -4,30 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#264d73"
     android:paddingLeft="16dp"
     tools:context="com.example.dell.commonroom.AuthActivity">
 
 
     <EditText
-        android:layout_width="270dp"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:layout_marginTop="140dp"
-        android:layout_marginLeft="30dp"
-        android:hint="Enter Your Name"
         android:id="@+id/editName"
-        />
+        android:layout_width="290dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/auth_text"
+        android:layout_marginLeft="36dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/input_background"
+        android:hint="Enter Your Name"
+        android:inputType="text"
+        android:padding="18dp" />
 
     <EditText
         android:id="@+id/auth_phone"
-        android:layout_width="270dp"
+        android:layout_width="290dp"
         android:layout_height="wrap_content"
         android:layout_above="@+id/auth_Verification"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="27dp"
+        android:layout_alignLeft="@+id/editName"
+        android:layout_alignStart="@+id/editName"
+        android:layout_marginBottom="18dp"
+        android:background="@drawable/input_background"
         android:ems="10"
         android:hint="@string/phone_number"
-        android:inputType="textPersonName|number|phone" />
+        android:inputType="textPersonName|number|phone"
+        android:padding="18dp" />
 
     <EditText
         android:id="@+id/auth_Verification"
@@ -36,6 +45,9 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:ems="10"
+        android:background="@drawable/input_background"
+        android:padding="18dp"
+
         android:hint="Verification"
         android:inputType="textPersonName"
         android:visibility="invisible" />
@@ -47,8 +59,11 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="73dp"
-        android:backgroundTint="@android:color/holo_orange_dark"
-        android:text="Send Verification Code" />
+        android:background="@drawable/input_background"
+        android:padding="18dp"
+
+        android:text="Send Verification Code"
+        android:textColor="@color/blueGray400" />
 
     <TextView
         android:id="@+id/auth_text"
