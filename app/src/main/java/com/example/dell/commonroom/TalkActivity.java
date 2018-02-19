@@ -10,16 +10,19 @@ import android.provider.ContactsContract;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.github.bassaer.chatmessageview.model.Message;
 import com.github.bassaer.chatmessageview.util.ChatBot;
 import com.github.bassaer.chatmessageview.util.ITimeFormatter;
 import com.github.bassaer.chatmessageview.view.*;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -69,6 +72,23 @@ public class TalkActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_talk);
         getData();
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        TextView tv = findViewById(R.id.chat_name_display);
+        tv.setText(yourName);
+
+        //logout function
+        Button logOut = findViewById(R.id.logout);
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(TalkActivity.this, AuthActivity.class));
+                finish();
+            }
+        });
+
+        setSupportActionBar(myToolbar);
+
         myIcon = BitmapFactory.decodeResource(getResources(), R.drawable.face_2);
         me = new User(myId, myName, myIcon);
         you = new User(yourId, yourName, yourIcon);
@@ -171,6 +191,7 @@ sendMessage(data);
 //                // This is a demo bot
 //                // Return within 3 seconds
 //                int sendDelay = (new Random().nextInt(4) + 1) * 1000;
+
 //                new Handler().postDelayed(new Runnable() {
 //                    @Override
 //                    public void run() {

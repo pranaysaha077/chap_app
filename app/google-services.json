@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "353892283698-278ic1d429nf2n5i96g71agnnhm818od.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dell.commonroom",
+            "certificate_hash": "e68470711653aed922ee9f180791d52181b85a59"
+          }
+        },
+        {
           "client_id": "353892283698-aqan87f9q3fn7qp9tteqpabuigpcnlqb.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
